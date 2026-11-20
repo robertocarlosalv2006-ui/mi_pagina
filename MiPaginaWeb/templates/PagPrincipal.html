@@ -1,0 +1,397 @@
+{% load static %}<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CarlosDGD Dev | Ingeniero de Software y Creador de Contenido</title>
+    <meta name="description" content="Portafolio de Roberto Carlos Alvia Delgado: proyectos de software, certificados y contenido de YouTube.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-2: #1c232d;
+            --line: #263040;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --accent: #00d2ff;
+            --hot: #fc1a1a;
+            --header-bg: rgba(0, 0, 0, 0.8);
+            --radius: 14px;
+        }
+        :root[data-theme="light"] {
+            --bg: #f6f8fa;
+            --surface: #ffffff;
+            --surface-2: #eef2f6;
+            --line: #d0d7de;
+            --text: #1f2328;
+            --muted: #59636e;
+            --accent: #0072a3;
+            --hot: #d4120f;
+            --header-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body {
+            margin: 0;
+            font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Space Grotesk', 'Segoe UI', sans-serif; line-height: 1.15; margin: 0; }
+        a { color: inherit; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+        /* ---------- Header ---------- */
+        .main-header {
+            position: sticky; top: 0; z-index: 10;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 12px;
+            padding: 16px clamp(20px, 5vw, 56px);
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        .logo-link { text-decoration: none; font-size: 14px; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: .5px; }
+        .brand-title { color: var(--muted); }
+        .header-right { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+        .navigation { display: flex; gap: 24px; flex-wrap: wrap; }
+        .nav-item { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+        .nav-item:hover, .nav-item.active { color: var(--accent); }
+        .social-icons { display: flex; gap: 16px; align-items: center; }
+        .social-icon {
+            color: var(--muted); font-size: 17px; text-decoration: none;
+            background: none; border: 0; padding: 0; cursor: pointer; transition: color .2s;
+        }
+        .social-icon:hover { color: var(--accent); }
+
+        /* ---------- Hero ---------- */
+        .hero-section {
+            position: relative;
+            display: flex; align-items: center;
+            min-height: 78vh;
+            padding: 90px clamp(20px, 6vw, 80px);
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(13,17,23,.78), rgba(13,17,23,.9)), url("{% static 'MiPaginaWeb/images/image_a6c08e26.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid var(--line);
+        }
+        .hero-content { max-width: 760px; color: #e6edf3; }
+        .hero-title { font-size: clamp(36px, 6vw, 64px); font-weight: 700; color: var(--hot); margin-bottom: 22px; }
+        .hero-title .highlight-text { display: block; color: #ffffff; }
+        .hero-subtitle { font-size: clamp(16px, 2vw, 20px); color: #b6c0cc; max-width: 56ch; margin: 0 0 32px; }
+        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-primary, .btn-secondary {
+            display: inline-block; padding: 12px 26px; border-radius: 999px;
+            font-weight: 500; text-decoration: none; transition: transform .15s, background .2s, color .2s;
+        }
+        .btn-primary { background: var(--accent); color: #04121a; }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-secondary { border: 1.5px solid #ffffff; color: #ffffff; }
+        .btn-secondary:hover { background: #ffffff; color: #0d1117; }
+
+        /* ---------- Secciones ---------- */
+        .section {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: clamp(24px, 5vw, 64px); flex-wrap: wrap;
+            max-width: 1100px; margin: 0 auto;
+            padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 56px);
+        }
+        .section-block { flex: 1 1 380px; min-width: 0; }
+        .section-title { font-size: clamp(28px, 4vw, 38px); color: var(--hot); margin-bottom: 24px; }
+        .section + .section { border-top: 1px solid var(--line); }
+
+        /* Sobre mí */
+        .Parrafo {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--hot);
+            border-radius: var(--radius);
+            padding: 8px 28px;
+        }
+        .Parrafo p { color: var(--muted); max-width: 62ch; }
+        .Parrafo strong { color: var(--text); }
+        .imagen { flex: 0 0 auto; margin-inline: auto; }
+        .imagen img {
+            display: block; width: min(340px, 72vw); aspect-ratio: 1; object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--surface-2);
+            box-shadow: 0 0 0 2px var(--accent), 0 12px 32px rgba(0, 0, 0, .35);
+        }
+
+        /* Tarjetas (certificados y proyectos) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+        .card {
+            display: flex; flex-direction: column;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color .2s, transform .2s;
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .card img { width: 100%; height: 190px; object-fit: cover; display: block; background: var(--surface-2); }
+        .card-body { display: flex; flex-direction: column; gap: 12px; padding: 16px 18px 20px; flex: 1; }
+        .card-title { font-size: 18px; }
+        .card-link {
+            margin-top: auto; align-self: flex-start;
+            color: var(--accent); font-weight: 500; text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+        .card-link:hover { border-bottom-color: var(--accent); }
+
+        /* Redes sociales */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+        }
+        .social-card {
+            display: flex; align-items: center; gap: 16px;
+            padding: 20px 22px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            text-decoration: none;
+            transition: border-color .2s, transform .2s;
+        }
+        .social-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .social-card i { font-size: 30px; width: 36px; text-align: center; color: var(--muted); transition: color .2s; }
+        .social-card.youtube:hover i { color: #ff0000; }
+        .social-card.tiktok:hover i { color: var(--accent); }
+        .social-card.instagram:hover i { color: #e1306c; }
+        .social-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; display: block; }
+        .social-handle { color: var(--muted); font-size: 14px; }
+
+        footer {
+            text-align: center; color: var(--muted); font-size: 14px;
+            padding: 32px 20px; border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 640px) {
+            .header-right { gap: 18px; }
+            .hero-section { min-height: 70vh; padding-block: 64px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <a href="#inicio" class="logo-link">
+                <span class="brand-name">CARLOSDGD DEV</span>
+                <span class="brand-title">| Ingeniero de Software &amp; Creador de Contenido</span>
+            </a>
+        </div>
+
+        <div class="header-right">
+            <nav class="navigation" aria-label="Navegación principal">
+                <a href="#inicio" class="nav-item active">Inicio</a>
+                <a href="#sobre-mi" class="nav-item">Sobre Mí</a>
+                <a href="#certificados" class="nav-item">Certificados</a>
+                <a href="#proyectos" class="nav-item">Proyectos</a>
+                <a href="#redes" class="nav-item">Redes</a>
+            </nav>
+
+            <div class="social-icons">
+                <button type="button" id="theme-toggle" class="social-icon" aria-label="Cambiar entre modo oscuro y claro">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <a href="https://github.com/robertocarlosalv2006-ui" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section" id="inicio">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Hola, soy Roberto.
+                    <span class="highlight-text">Ingeniero de Software</span>
+                    <span class="highlight-text">Creador de Contenido</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Fusiono la lógica del código con la creatividad audiovisual y la pasión por la tecnología.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#proyectos" class="btn-primary">Ver portafolio</a>
+                    <a href="#redes" class="btn-secondary">Mis canales</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="sobre-mi">
+            <div class="section-block">
+                <h2 class="section-title">Sobre Mí</h2>
+                <div class="Parrafo">
+                    <p>
+                        ¡Hola! Soy <strong>Roberto Carlos Alvia Delgado</strong>. Actualmente estudio
+                        <strong>Ingeniería de Software</strong>, una carrera a la que le estoy dedicando
+                        mucho esfuerzo y pasión.
+                    </p>
+                    <p>
+                        A la par, tengo un canal de YouTube llamado <strong>CARLOSDGD</strong>, donde subo
+                        contenido jugando videojuegos, principalmente <em>Minecraft</em>. También me gusta
+                        compartir quién soy con autenticidad, y como dato personal, soy autista, algo que
+                        forma parte de mi manera única de ver el mundo y crear contenido.
+                    </p>
+                </div>
+            </div>
+            <div class="imagen">
+                <img src="{% static 'MiPaginaWeb/images/channels4_profile.jpg' %}" alt="Foto de perfil de Roberto Carlos">
+            </div>
+        </section>
+
+        <section class="section" id="certificados">
+            <div class="section-block">
+                <h2 class="section-title">Certificados</h2>
+                <div class="cards-grid">
+                    <article class="card">
+                        <img src="{% static 'MiPaginaWeb/images/CERTIFICADO-Fundamentos-de-robotica-y-tecnologia_page-0001.jpg' %}" alt="Certificado de Fundamentos de Robótica y Tecnología" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Fundamentos de Robótica y Tecnología</h3>
+                            <a class="card-link" href="{% static 'MiPaginaWeb/images/CERTIFICADO-Fundamentos-de-robotica-y-tecnologia_page-0001.jpg' %}" target="_blank" rel="noopener noreferrer">Ver imagen completa</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="{% static 'MiPaginaWeb/images/Domina-la-IA-con-gemini_page-0001.jpg' %}" alt="Certificado de Domina la IA con Gemini" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Domina la IA con Gemini</h3>
+                            <a class="card-link" href="{% static 'MiPaginaWeb/images/Domina-la-IA-con-gemini_page-0001.jpg' %}" target="_blank" rel="noopener noreferrer">Ver imagen completa</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="{% static 'MiPaginaWeb/images/Certificado-de-ingles.jpg' %}" alt="Certificado de inglés" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Certificado de inglés</h3>
+                            <a class="card-link" href="{% static 'MiPaginaWeb/images/Certificado-de-ingles.jpg' %}" target="_blank" rel="noopener noreferrer">Ver imagen completa</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="proyectos">
+            <div class="section-block">
+                <h2 class="section-title">Mis Proyectos</h2>
+                <div class="cards-grid">
+                    <article class="card">
+                        <img src="{% static 'MiPaginaWeb/images/imagen-proyecto.png' %}" alt="Captura del proyecto" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Proyecto</h3>
+                            <a class="card-link" href="https://github.com/robertocarlosalv2006-ui/proyecto" target="_blank" rel="noopener noreferrer">Ver proyecto en GitHub</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="{% static 'MiPaginaWeb/images/imagen-parqueadero-uleam.png' %}" alt="Captura del proyecto Parqueadero ULEAM" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Parqueadero ULEAM</h3>
+                            <a class="card-link" href="https://github.com/robertocarlosalv2006-ui/Parque-Uleam" target="_blank" rel="noopener noreferrer">Ver proyecto en GitHub</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="{% static 'MiPaginaWeb/images/imagen-horario-uleam.png' %}" alt="Captura del proyecto Horarios ULEAM" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Horarios ULEAM</h3>
+                            <a class="card-link" href="https://github.com/robertocarlosalv2006-ui/horarios_uleam" target="_blank" rel="noopener noreferrer">Ver proyecto en GitHub</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="redes">
+            <div class="section-block">
+                <h2 class="section-title">Redes Sociales</h2>
+                <div class="social-grid">
+                    <a class="social-card youtube" href="https://www.youtube.com/@carlosdgd" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                        <span>
+                            <span class="social-name">YouTube</span>
+                            <span class="social-handle">@carlosdgd</span>
+                        </span>
+                    </a>
+                    <a class="social-card tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i>
+                        <span>
+                            <span class="social-name">TikTok</span>
+                            <span class="social-handle">Ver perfil</span>
+                        </span>
+                    </a>
+                    <a class="social-card instagram" href="https://www.instagram.com/carlosdgd2/" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                        <span>
+                            <span class="social-name">Instagram</span>
+                            <span class="social-handle">@carlosdgd2</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © CarlosDGD Dev. Hecho con Django.
+    </footer>
+
+    <script>
+        // Modo oscuro / claro
+        (function () {
+            var root = document.documentElement;
+            var btn = document.getElementById('theme-toggle');
+            var icon = btn.querySelector('i');
+            function apply(theme) {
+                root.setAttribute('data-theme', theme);
+                icon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                try { localStorage.setItem('theme', theme); } catch (e) {}
+            }
+            var saved = null;
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            if (saved) apply(saved);
+            btn.addEventListener('click', function () {
+                apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+            });
+        })();
+
+        // Marca el enlace del menú según la sección visible
+        (function () {
+            var links = document.querySelectorAll('.nav-item');
+            var sections = Array.prototype.map.call(links, function (a) {
+                return document.querySelector(a.getAttribute('href'));
+            });
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) {
+                        links.forEach(function (a) {
+                            a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-45% 0px -50% 0px' });
+            sections.forEach(function (s) { if (s) io.observe(s); });
+        })();
+    </script>
+</body>
+</html>
